@@ -58,62 +58,7 @@ Public Class Form_APAX_5017H
     Public Shared socketData As String = Nothing
     Dim TH As Threading.ThreadStart
     Dim CT As Threading.Thread
-    'win Socket code
-    Public Sub SynchronousSocketListener()
-        ' Data buffer for incoming data.
-        Dim bytes() As Byte = New [Byte](1024) {}
 
-        ' Establish the local endpoint for the socket.
-        ' Dns.GetHostName returns the name of the 
-        ' host running the application.
-        Dim ipHostInfo As IPHostEntry = Dns.Resolve(Dns.GetHostName())
-        Dim ipAddress As IPAddress = ipHostInfo.AddressList(0)
-        Dim localEndPoint As New IPEndPoint(ipAddress, 11000)
-
-        ' Create a TCP/IP socket.
-        Dim listener As New Socket(AddressFamily.InterNetwork,
-            SocketType.Stream, ProtocolType.Tcp)
-
-        ' Bind the socket to the local endpoint and 
-        ' listen for incoming connections.
-        TextBox3.Text = ipAddress.ToString
-        listener.Bind(localEndPoint)
-        listener.Listen(10)
-        ' Start listening for connections.
-        While True
-            Console.WriteLine("Waiting for a connection...")
-            ' Program is suspended while waiting for an incoming connection.
-            Dim handler As Socket = listener.Accept()
-            socketData = Nothing
-
-            ' An incoming connection needs to be processed.
-            While True
-                bytes = New Byte(1024) {}
-                Dim bytesRec As Integer = handler.Receive(bytes)
-                socketData += Encoding.ASCII.GetString(bytes, 0, bytesRec)
-                If socketData.IndexOf("<EOF>") > -1 Then
-                    Exit While
-                End If
-            End While
-            ' Show the data on the console.
-            Console.WriteLine("Text received : {0}", socketData)
-            ' Echo the data back to the client.
-            Dim msg As Byte() = Encoding.ASCII.GetBytes(socketData)
-            handler.Send(msg)
-            handler.Shutdown(SocketShutdown.Both)
-            handler.Close()
-        End While
-    End Sub 'SynchronousSocketListener
-
-    Private Sub socketStart()
-        TH = New ThreadStart(AddressOf SynchronousSocketListener)
-        CT = New Threading.Thread(TH)
-        CT.Start()
-    End Sub
-
-    Private Sub socketEnd()
-        CT.Abort()
-    End Sub
 
     Private Sub UpdateUI(ByVal newText As String, ByVal c As Control)
 
@@ -123,8 +68,8 @@ Public Class Form_APAX_5017H
 
     Public Sub New()
         MyBase.New()
-        socketStart()
-        InitializeComponent()
+        '       socketStart()
+        '       InitializeComponent()
         m_szSlots = Nothing
         m_iPollingCount = 0
         m_iFailCount = 0
@@ -138,8 +83,8 @@ Public Class Form_APAX_5017H
     End Sub
     Public Sub New(ByVal SlotNum As Integer, ByVal ScanTime As Integer)
         MyBase.New()
-        socketStart()
-        InitializeComponent()
+        '      socketStart()
+        '     InitializeComponent()
         m_szSlots = Nothing
         m_iSlot_ID_5017 = SlotNum
         m_iSlot_ID_5060 = SlotNum
@@ -1258,7 +1203,4 @@ Public Class Form_APAX_5017H
         Next
     End Sub
 
-    Private Sub Form_APAX_5017H_Closed(sender As Object, e As EventArgs) Handles Me.Closed
-        socketEnd()
-    End Sub
 End Class

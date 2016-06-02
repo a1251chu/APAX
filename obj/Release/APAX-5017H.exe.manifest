@@ -90,14 +90,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="APAX-5017H.exe" size="58760">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="APAX-5017H.exe" size="57736">
       <assemblyIdentity name="APAX-5017H" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>T+JrXzBLjppEqvCtTKYZUCQNNoU=</dsig:DigestValue>
+        <dsig:DigestValue>rtuvpXPZHCEym66yjPDpgJft9Gs=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
