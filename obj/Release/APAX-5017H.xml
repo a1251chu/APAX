@@ -1,0 +1,41 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+APAX-5017H
+</name>
+</assembly>
+<members>
+<member name="M:APAX_5017H.Form_APAX_5017H.SetBurnoutFcnValueComboBox(System.String[])">
+ Get Burnout detect mode value combobox string
+</member>
+<member name="M:APAX_5017H.Form_APAX_5017H.LvChInfo_SelectedIndexChanged(System.Int32)">
+ When user select specific item of channel information, you should update channel range
+</member>
+<member name="M:APAX_5017H.Form_APAX_5017H.RefreshAiSetting">
+ Refresh Integration time 
+</member>
+<member name="M:APAX_5017H.Form_APAX_5017H.RefreshBurnoutSetting(System.Boolean,System.Boolean)">
+ Refresh AI Burnout detect mode settings
+</member>
+<member name="M:APAX_5017H.Form_APAX_5017H.CheckControllable">
+ Check module controllable
+</member>
+<member name="T:APAX_5017H.My.Resources.Resources">
+<summary>
+  用於查詢當地語系化字串等的強類型資源類別。
+</summary>
+</member>
+<member name="P:APAX_5017H.My.Resources.Resources.ResourceManager">
+<summary>
+  傳回這個類別使用的快取的 ResourceManager 執行個體。
+</summary>
+</member>
+<member name="P:APAX_5017H.My.Resources.Resources.Culture">
+<summary>
+  覆寫目前執行緒的 CurrentUICulture 屬性，對象是所有
+  使用這個強類型資源類別的資源查閱。
+</summary>
+</member>
+</members>
+</doc>

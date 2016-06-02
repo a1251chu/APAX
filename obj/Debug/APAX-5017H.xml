@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+APAX-5017H
+</name>
+</assembly>
+<members>
+<member name="M:APAX_5017H.Form_APAX_5017H.SetBurnoutFcnValueComboBox(System.String[])">
+ Get Burnout detect mode value combobox string
+
+</member><member name="M:APAX_5017H.Form_APAX_5017H.LvChInfo_SelectedIndexChanged(System.Int32)">
+ When user select specific item of channel information, you should update channel range
+
+</member><member name="M:APAX_5017H.Form_APAX_5017H.RefreshAiSetting">
+ Refresh Integration time 
+
+</member><member name="M:APAX_5017H.Form_APAX_5017H.RefreshBurnoutSetting(System.Boolean,System.Boolean)">
+ Refresh AI Burnout detect mode settings
+
+</member><member name="M:APAX_5017H.Form_APAX_5017H.CheckControllable">
+ Check module controllable
+
+</member>
+</members>
+</doc>
