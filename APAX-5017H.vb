@@ -58,18 +58,98 @@ Public Class Form_APAX_5017H
     Public Shared socketData As String = Nothing
     Dim TH As Threading.ThreadStart
     Dim CT As Threading.Thread
+    'win Socket code
+    Public Sub SynchronousSocketListener()
+        ' Data buffer for incoming data.
+        Dim bytes() As Byte = New [Byte](1024) {}
+        Dim controlNum As Integer
+        ' Establish the local endpoint for the socket.
+        ' Dns.GetHostName returns the name of the 
+        ' host running the application.
+        Dim ipHostInfo As IPHostEntry = Dns.Resolve(Dns.GetHostName())
+        Dim ipAddress As IPAddress = ipHostInfo.AddressList(0)
+        Dim localEndPoint As New IPEndPoint(ipAddress, 11000)
+        Dim control As Boolean
+        ' Create a TCP/IP socket.
+        Dim listener As New Socket(AddressFamily.InterNetwork,
+            SocketType.Stream, ProtocolType.Tcp)
 
+        ' Bind the socket to the local endpoint and 
+        ' listen for incoming connections.
+        listener.Bind(localEndPoint)
+        listener.Listen(10)
+        UpdateUI(ipAddress.ToString, ipText)
+        ' Start listening for connections.
+        While True
+            control = False
+            ' Console.WriteLine("Waiting for a connection...")
+            ' Program is suspended while waiting for an incoming connection.
+            Dim handler As Socket = listener.Accept()
+            socketData = Nothing
+            ' An incoming connection needs to be processed.
+            While True
+                bytes = New Byte(1024) {}
+                Dim bytesRec As Integer = handler.Receive(bytes)
+                Try
+                    socketData += Encoding.ASCII.GetString(bytes, 0, bytesRec)
+                    If socketData.IndexOf("E") > -1 Then
+                        Exit While
+                    End If
+                Catch ex As Exception
+
+                End Try
+
+            End While
+            If Mid(socketData, 1, 1) = "*" And Len(socketData) = 15 Then
+                socketData = Mid(socketData, 2, Len(socketData) - 2)
+                controlNum = Val(Mid(socketData, 1, 1))
+                socketData = Mid(socketData, 2, Len(socketData) - 1)
+                If Len(socketData) = 12 Then
+                    control = True
+                    Call control5060(controlNum, socketData)
+                End If
+            End If
+            ' Show the data on the console.
+            'Console.WriteLine("Text received : {0}", socketData)
+            ' Echo the data back to the client.
+            Dim msg As Byte()
+            If control Then
+                msg = Encoding.ASCII.GetBytes(socketData)
+            Else
+                msg = Encoding.ASCII.GetBytes("0")
+            End If
+            handler.Send(msg)
+            UpdateUI(socketData, TextBox3)
+            socketData = ""
+            'handler.Shutdown(SocketShutdown.Both)
+            'handler.Close()
+        End While
+    End Sub 'SynchronousSocketListener
+
+    Private Sub socketStart()
+        TH = New ThreadStart(AddressOf SynchronousSocketListener)
+        CT = New Threading.Thread(TH)
+        TextBox3.Text = "socket start"
+        CT.Start()
+    End Sub
+
+    Private Sub socketEnd()
+        CT.Abort()
+    End Sub
+    Private Delegate Sub UpdateUICallBack(ByVal newText As String, ByVal c As Control)
 
     Private Sub UpdateUI(ByVal newText As String, ByVal c As Control)
-
-        c.Text = newText
-
+        If Me.InvokeRequired() Then
+            Dim cb As New UpdateUICallBack(AddressOf UpdateUI)
+            Me.Invoke(cb, newText, c)
+        Else
+            c.Text = newText
+        End If
     End Sub
 
     Public Sub New()
         MyBase.New()
-        '       socketStart()
-        '       InitializeComponent()
+        InitializeComponent()
         m_szSlots = Nothing
         m_iPollingCount = 0
         m_iFailCount = 0
@@ -78,13 +158,13 @@ Public Class Form_APAX_5017H
         m_iSlot_ID_5060 = -1
         m_ScanTime_LocalSys(0) = 500 'Scan time default 500 ms
         Timer1.Interval = m_ScanTime_LocalSys(0)
+        socketStart()
         ' Me.StatusBar_IO.Text = "Start to demo " + APAX_INFO_NAME + "-" + DVICE_TYPE + " by clicking 'Start' button."
         'm_szSlots = Nothing
     End Sub
     Public Sub New(ByVal SlotNum As Integer, ByVal ScanTime As Integer)
         MyBase.New()
-        '      socketStart()
-        '     InitializeComponent()
+        InitializeComponent()
         m_szSlots = Nothing
         m_iSlot_ID_5017 = SlotNum
         m_iSlot_ID_5060 = SlotNum
@@ -93,6 +173,7 @@ Public Class Form_APAX_5017H
         m_ScanTime_LocalSys = New Integer((1) - 1) {}
         m_ScanTime_LocalSys(0) = ScanTime 'Scan time default 500 ms
         Timer1.Interval = m_ScanTime_LocalSys(0)
+        socketStart()
         '  Me.StatusBar_IO.Text = "Start to demo " + APAX_INFO_NAME + "-" + DVICE_TYPE + " by clicking 'Start' button."
 
     End Sub
@@ -1203,4 +1284,7 @@ Public Class Form_APAX_5017H
         Next
     End Sub
 
+    Private Sub Form_APAX_5017H_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        socketEnd()
+    End Sub
 End Class

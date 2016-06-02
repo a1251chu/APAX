@@ -28,8 +28,6 @@ Partial Class Form_APAX_5017H
         Me.StatusBar_IO = New System.Windows.Forms.StatusBar()
         Me.tcRemote = New System.Windows.Forms.TabControl()
         Me.tabModuleInfo = New System.Windows.Forms.TabPage()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.iPortUpDown = New System.Windows.Forms.DomainUpDown()
         Me.btnLocate = New System.Windows.Forms.Button()
         Me.lblLocate = New System.Windows.Forms.Label()
         Me.labADVer = New System.Windows.Forms.Label()
@@ -86,6 +84,7 @@ Partial Class Form_APAX_5017H
         Me.btnTrue = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.btnFalse = New System.Windows.Forms.Button()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.comport = New System.IO.Ports.SerialPort(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
@@ -99,6 +98,11 @@ Partial Class Form_APAX_5017H
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.ipText = New System.Windows.Forms.TextBox()
         Me.tcRemote.SuspendLayout()
         Me.tabModuleInfo.SuspendLayout()
         Me.tabAI.SuspendLayout()
@@ -108,6 +112,7 @@ Partial Class Form_APAX_5017H
         Me.panelMain.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Btn_Quit
@@ -138,6 +143,7 @@ Partial Class Form_APAX_5017H
         Me.tcRemote.Controls.Add(Me.tabModuleInfo)
         Me.tcRemote.Controls.Add(Me.tabAI)
         Me.tcRemote.Controls.Add(Me.TabPage1)
+        Me.tcRemote.Controls.Add(Me.TabPage2)
         Me.tcRemote.Dock = System.Windows.Forms.DockStyle.Top
         Me.tcRemote.Enabled = False
         Me.tcRemote.Location = New System.Drawing.Point(0, 0)
@@ -149,9 +155,6 @@ Partial Class Form_APAX_5017H
         '
         'tabModuleInfo
         '
-        Me.tabModuleInfo.Controls.Add(Me.TextBox3)
-        Me.tabModuleInfo.Controls.Add(Me.Label4)
-        Me.tabModuleInfo.Controls.Add(Me.iPortUpDown)
         Me.tabModuleInfo.Controls.Add(Me.btnLocate)
         Me.tabModuleInfo.Controls.Add(Me.lblLocate)
         Me.tabModuleInfo.Controls.Add(Me.labADVer)
@@ -169,23 +172,6 @@ Partial Class Form_APAX_5017H
         Me.tabModuleInfo.Size = New System.Drawing.Size(474, 318)
         Me.tabModuleInfo.TabIndex = 0
         Me.tabModuleInfo.Text = "Module Information"
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(4, 202)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(27, 12)
-        Me.Label4.TabIndex = 56
-        Me.Label4.Text = "port:"
-        '
-        'iPortUpDown
-        '
-        Me.iPortUpDown.Location = New System.Drawing.Point(157, 202)
-        Me.iPortUpDown.Name = "iPortUpDown"
-        Me.iPortUpDown.Size = New System.Drawing.Size(72, 22)
-        Me.iPortUpDown.TabIndex = 55
-        Me.iPortUpDown.Text = "8080"
         '
         'btnLocate
         '
@@ -621,6 +607,22 @@ Partial Class Form_APAX_5017H
         Me.btnFalse.TabIndex = 1
         Me.btnFalse.Text = "Set False"
         '
+        'TabPage2
+        '
+        Me.TabPage2.BackColor = System.Drawing.Color.LightGray
+        Me.TabPage2.Controls.Add(Me.ipText)
+        Me.TabPage2.Controls.Add(Me.Label6)
+        Me.TabPage2.Controls.Add(Me.Label5)
+        Me.TabPage2.Controls.Add(Me.TextBox4)
+        Me.TabPage2.Controls.Add(Me.TextBox3)
+        Me.TabPage2.Controls.Add(Me.Label4)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(474, 318)
+        Me.TabPage2.TabIndex = 3
+        Me.TabPage2.Text = "TabPage2"
+        '
         'Timer1
         '
         Me.Timer1.Interval = 800
@@ -689,10 +691,56 @@ Partial Class Form_APAX_5017H
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(8, 246)
+        Me.TextBox3.Location = New System.Drawing.Point(168, 84)
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(246, 22)
-        Me.TextBox3.TabIndex = 57
+        Me.TextBox3.Size = New System.Drawing.Size(169, 22)
+        Me.TextBox3.TabIndex = 60
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("新細明體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label4.Location = New System.Drawing.Point(121, 20)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(37, 16)
+        Me.Label4.TabIndex = 59
+        Me.Label4.Text = "port:"
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Enabled = False
+        Me.TextBox4.Location = New System.Drawing.Point(168, 14)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(65, 22)
+        Me.TextBox4.TabIndex = 61
+        Me.TextBox4.Text = "11000"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("新細明體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label5.Location = New System.Drawing.Point(71, 84)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(87, 16)
+        Me.Label5.TabIndex = 62
+        Me.Label5.Text = "receive data:"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("新細明體", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(136, Byte))
+        Me.Label6.Location = New System.Drawing.Point(82, 54)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(76, 16)
+        Me.Label6.TabIndex = 63
+        Me.Label6.Text = "IP address:"
+        '
+        'ipText
+        '
+        Me.ipText.Location = New System.Drawing.Point(168, 54)
+        Me.ipText.Name = "ipText"
+        Me.ipText.Size = New System.Drawing.Size(169, 22)
+        Me.ipText.TabIndex = 64
         '
         'Form_APAX_5017H
         '
@@ -722,6 +770,8 @@ Partial Class Form_APAX_5017H
         Me.panelMain.ResumeLayout(False)
         Me.Panel1.ResumeLayout(False)
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -799,7 +849,11 @@ Partial Class Form_APAX_5017H
     Friend WithEvents NumericUpDown1 As NumericUpDown
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents Label4 As Label
-    Friend WithEvents iPortUpDown As DomainUpDown
+    Friend WithEvents TabPage2 As TabPage
     Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents ipText As TextBox
+    Friend WithEvents Label6 As Label
 End Class
