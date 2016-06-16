@@ -1120,11 +1120,11 @@ Public Class Form_APAX_5017H
         Dim i As Integer
         Dim controlNum As Integer
         ReceieveTxtBox.Text = Incoming
-        If Incoming = ("#01" & Chr(13)) Then
+        If Incoming = ("#01" & Chr(13)) Or Incoming = ("#01") Then
             comport.Write(SendString + Chr(13))
             outPut = SendString
         End If
-        If Incoming = ("#02" & Chr(13)) Then
+        If Incoming = ("#02" & Chr(13)) Or Incoming = ("#02") Then
             comport.Write(SendString2 + Chr(13))
             outPut = SendString2
         End If
